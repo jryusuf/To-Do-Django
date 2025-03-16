@@ -21,7 +21,7 @@ class NewVisitorTest(LiveServerTestCase):
             try: 
                 table = self.browser.find_element(By.ID, "id_list_table")
                 rows = table.find_elements(By.TAG_NAME, "tr")
-                self.assertIn("row_text", [row.text for row in rows])
+                self.assertIn(row_text, [row.text for row in rows])
                 return
             except (AssertionError, WebDriverException):
                 if time.time() -start_time > MAX_WAIT:
@@ -68,6 +68,42 @@ class NewVisitorTest(LiveServerTestCase):
 
         # Satisfied, she goes back to sleep
 
+    def test_multiple_users_can_start_list_at_different_urls(self):
+        #edith starta new to-do list
+        self.browser.get(self.live_server_url)
+        inputbox = self.browser.find_element(By.ID, "id_new_item")
+        inputbox.send_keys("buy peacock feathers")
+        inputbox.send_keys(Keys.ENTER)
+        self.wait_for_now_in_list_table("1: buy peacock feathers")
+
+        #she notices that her list has a unique url
+        edith_list_url = self.browser.current_url
+        self.assertRegex(edith_list_url, "/lists/.+")
+
+        #we delete all the browsers cookies
+        self.browser.delete_all_cookies()
+
+        #francis visits the home page there is no sigh of ediths list
+        self.browser.get(self.live_server_url)
+        page_text = self.browser.find_element(By.TAG_NAME, "body").text
+        self.assertNotIn("buy peacock feathers", page_text)
+        self.assertNotIn("make a fly", page_text)
+
+        #francis starts a new list by entering a new item, he is less interesting than edith
+        inputbox = self.browser.find_element(By.ID, "id_new_item")
+        inputbox.send_keys("buy milk")
+        inputbox.send_keys(Keys.ENTER)
+        self.wait_for_now_in_list_table("1: buy milk")
+
+        #francis gets his own unique url
+        francis_list_url = self.browser.current_url
+        self.assertRegex(francis_list_url, "/lists/.+")
+        self.assertNotEqual(francis_list_url, edith_list_url)
+
+        #again there is no trace of ediths list
+        page_text = self.browser.find_element(By.TAG_NAME, "body").text
+        self.assertNotIn("buy peacock feathers", page_text)
+        self.assertIn("buy milk", page_text)
 
 if __name__ == "__main__":  
     unittest.main() 
