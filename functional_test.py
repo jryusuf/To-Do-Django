@@ -36,13 +36,18 @@ class NewVisitorTest(unittest.TestCase):
         time.sleep(1)
 
         table = self.browser.find_element(By.ID, "id_list_table")
-        rows = table.find_element(By.TAG_NAME, "tr")
-        self.assertTrue(any(row.text == "1: buy peacock feathers" for row in rows),
-                        "new to-di item did not appear in table")
+        rows = table.find_elements(By.TAG_NAME, "tr")
+        print(type(rows), rows)
+        self.assertIn("1: buy peacock feathers", [row.text for row in rows])
 
         #there is stilla text box inviting her to add another item
         #she enters "use peacock feathers to make a fly"
         #(edith is very methodical)
+        self.assertIn(
+            "2: user peacock feathers to make fly",
+            [row.text for row in rows]
+            )
+
         self.fail("Finish the test!")  
 
         [...]
