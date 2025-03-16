@@ -11,6 +11,11 @@ class NewVisitorTest(unittest.TestCase):
 
     def tearDown(self):  
         self.browser.quit()
+    
+    def check_for_row_in_list_tables(self, row_text):
+        table = self.browser.find_element(By.ID, "id_list_table")
+        rows = table.find_elements(By.TAG_NAME, "tr")
+        self.assertIn(row_text, [row.text for row in rows])
 
     def test_can_start_a_todo_list(self):  
         # Edith has heard about a cool new online to-do app.
@@ -35,18 +40,18 @@ class NewVisitorTest(unittest.TestCase):
         inputbox.send_keys(Keys.ENTER)
         time.sleep(1)
 
-        table = self.browser.find_element(By.ID, "id_list_table")
-        rows = table.find_elements(By.TAG_NAME, "tr")
-        print(type(rows), rows)
-        self.assertIn("1: buy peacock feathers", [row.text for row in rows])
+        self.check_for_row_in_list_tables("1: buy peacock feathers")
 
         #there is stilla text box inviting her to add another item
         #she enters "use peacock feathers to make a fly"
         #(edith is very methodical)
-        self.assertIn(
-            "2: user peacock feathers to make fly",
-            [row.text for row in rows]
-            )
+        inputbox = self.browser.find_element(By.ID, "id_new_item")
+        inputbox.send_keys("use peacock feathers to make a fly")
+        inputbox.send_keys(Keys.ENTER)
+        time.sleep(1)
+        
+        self.check_for_row_in_list_tables("1: buy peacock feathers")
+        self.check_for_row_in_list_tables("2: use peacock feathers to make a fly")
 
         self.fail("Finish the test!")  
 
