@@ -1,0 +1,25 @@
+- hosts: all
+  remote_user: ubuntu
+  vars:
+    ansible_ssh_private_key_file: ~/.ssh/new_key_pair.pem
+  tasks:
+    - name: Install docker
+      ansible.builtin.apt:
+        name: docker.io
+        state: latest
+        update_cache: true
+      become: true
+    
+    - name: add our user to the docker group, so we don't need sudo
+      ansible.builtin.user:
+        name: '{{ ansible_user }}'
+        groups: docker
+      become: true
+
+    - name: Run test container
+      community.docker.docker_container:
+        name: testcontainer
+        state: started
+        image: busybox
+        command: echo hello world
+      become: true
