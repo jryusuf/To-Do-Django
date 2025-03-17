@@ -13,8 +13,8 @@ WORKDIR /src
 
 RUN python manage.py collectstatic
 
-RUN addgroup --system nonroot &&  adduser --system --no-create-home --disabled-password --group nonroot
+# RUN addgroup --system nonroot &&  adduser --system --no-create-home --disabled-password --group nonroot
 
-USER nonroot
+# USER nonroot ## need file permission for database
 ENV DJANGO_DEBUG_FALSE=1
 CMD gunicorn --bind :8888 superlists.wsgi:application
