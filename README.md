@@ -28,13 +28,21 @@ This is a simple to-do list application built with Django, following Test-Driven
     ```bash
     pip install -r requirements.txt
     ```
+4.  **Running Tests:**
 
-4.  **Run migrations:**
+    To run tests:
+
+    ```bash
+    python src/manage.py test lists
+    python src/manage.py test functional_tests
+    ```
+
+5.  **Run migrations:**
     ```bash
     python src/manage.py migrate
     ```
 
-5.  **Run the development server:**
+6.  **Run the development server:**
     ```bash
     python src/manage.py runserver
     ```
@@ -85,12 +93,3 @@ For local deployment using Docker, you can use the following steps:
     ```bash
     docker-compose up --build
     ```
-
-## Running Tests
-
-To run tests:
-
-```bash
-python src/manage.py test lists
-python src/manage.py test functional_tests
-```
