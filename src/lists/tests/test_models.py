@@ -3,7 +3,18 @@ from lists.models import Item, List
 from django.db.utils import IntegrityError
 from django.core.exceptions import ValidationError
 
-class ListAndItemModelsTest(TestCase):
+class ItemModelTest(TestCase):
+    def test_default_text(self):
+        item = Item()
+        self.assertEqual(item.text, "")
+
+    def test_item_is_related_to_list(self):
+        mylist = List.objects.create()
+        item = Item()
+        item.list = mylist
+        item.save()
+        self.assertIn(item, mylist.item_set.all())
+
     def test_saving_and_retrieving_items(self):
         mylist = List()
         mylist.save()
@@ -43,6 +54,14 @@ class ListAndItemModelsTest(TestCase):
         with self.assertRaises(ValidationError):
             item.full_clean()
     
+    def test_duplicate_items_are_invalid(self):
+        mylist = List.objects.create()
+        Item.objects.create(list=mylist, text="bla")
+        with self.assertRaises(ValidationError):
+            item = Item(list=mylist, text="bla")
+            item.full_clean()
+
+class ListModelTest(TestCase):
     def test_get_absolute_url(self):
         mylist = List.objects.create()
         self.assertEqual(mylist.get_absolute_url(), f"/lists/{mylist.id}/")

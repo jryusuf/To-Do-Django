@@ -70,7 +70,7 @@ The production environment is set up using Docker and Ansible.
 
 ## Example Deployment
 
-Example deployment at:[http://ec2-18-133-232-224.eu-west-2.compute.amazonaws.com/](http://ec2-18-133-232-224.eu-west-2.compute.amazonaws.com/)
+Example deployment at: [http://ec2-18-133-232-224.eu-west-2.compute.amazonaws.com/](http://ec2-18-133-232-224.eu-west-2.compute.amazonaws.com/)
 
 
 ## Local Docker Deployment
