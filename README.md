@@ -14,7 +14,7 @@ This is a simple to-do list application built with Django, following Test-Driven
 
 1.  **Clone the repository:**
     ```bash
-    git clone <repository_url>
+    git clone https://github.com/jryusuf/To-Do-Django
     cd django-tdd
     ```
 
