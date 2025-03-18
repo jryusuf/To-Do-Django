@@ -33,8 +33,8 @@ This is a simple to-do list application built with Django, following Test-Driven
     To run tests:
 
     ```bash
-    python src/manage.py test lists
-    python src/manage.py test functional_tests
+    python src/manage.py test lists #unit tests
+    python src/manage.py test functional_tests #functional/e2e tests
     ```
 
 5.  **Run migrations:**
@@ -71,6 +71,7 @@ The production environment is set up using Docker and Ansible.
 ## Example Deployment
 
 You can see an example deployment of this application at:
+<p>
 [http://ec2-18-133-232-224.eu-west-2.compute.amazonaws.com/](http://ec2-18-133-232-224.eu-west-2.compute.amazonaws.com/)
 
 
