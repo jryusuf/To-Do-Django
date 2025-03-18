@@ -8,34 +8,28 @@ class ItemValidationTest(FunctionalTest):
         # Edith goes to the home page and accidentally tries to submit
         # an empty list item. She hits Enter on the empty input box
         self.browser.get(self.live_server_url)
-        self.browser.get_item_input_box().send_keys(Keys.ENTER)
+        self.get_item_input_box().send_keys(Keys.ENTER)
 
         # The home page refreshes, and there is an error message saying
         # that list items cannot be blank
         self.wait_for(
-            lambda: self.assertEqual(
-                        self.browser.find_element(By.CSS_SELECTOR, ".invalid-feedback").text,
-                        "You can't have an empty list item"
-                    )    
+            lambda: self.browser.find_element(By.CSS_SELECTOR, "#id_text:invalid")
         )
         # She tries again with some text for the item, which now works
-        self.browser.get_item_input_box().send_keys("purchase  milk")
-        self.browser.get_item_input_box().send_keys(Keys.ENTER)
+        self.get_item_input_box().send_keys("purchase  milk")
+        self.get_item_input_box().send_keys(Keys.ENTER)
         self.wait_for_now_in_list_table("1: purchase milk")
         
         
         # Perversely, she now decides to submit a second blank list item
-        self.browser.get_item_input_box().send_keys(Keys.ENTER)
+        self.get_item_input_box().send_keys(Keys.ENTER)
         
         # She receives a similar warning on the list page
         self.wait_for(
-            lambda: self.assertEqual(
-                        self.browser.find_element(By.CSS_SELECTOR, ".invalid-feedback").text,
-                        "You can't have an empty list item"
-                    )    
+            lambda: self.browser.find_element(By.CSS_SELECTOR, "#id_text:invalid")  
         )
         # And she can correct it by filling some text in
-        self.browser.get_item_input_box().send_keys("make tea")
-        self.browser.get_item_input_box().send_keys(Keys.ENTER)
+        self.get_item_input_box().send_keys("make tea")
+        self.get_item_input_box().send_keys(Keys.ENTER)
         self.wait_for_now_in_list_table("2: make tea")
         
