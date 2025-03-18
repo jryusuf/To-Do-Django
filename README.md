@@ -71,7 +71,7 @@ The production environment is set up using Docker and Ansible.
 ## Example Deployment
 
 You can see an example deployment of this application at:
-<p>
+<p></p>
 [http://ec2-18-133-232-224.eu-west-2.compute.amazonaws.com/](http://ec2-18-133-232-224.eu-west-2.compute.amazonaws.com/)
 
 
