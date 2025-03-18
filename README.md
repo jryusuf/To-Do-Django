@@ -15,7 +15,6 @@ This is a simple to-do list application built with Django, following Test-Driven
 1.  **Clone the repository:**
     ```bash
     git clone https://github.com/jryusuf/To-Do-Django
-    cd django-tdd
     ```
 
 2.  **Create a virtual environment (recommended):**
@@ -65,6 +64,27 @@ The production environment is set up using Docker and Ansible.
 
 You can see an example deployment of this application at:
 [http://ec2-18-133-232-224.eu-west-2.compute.amazonaws.com/](http://ec2-18-133-232-224.eu-west-2.compute.amazonaws.com/)
+
+
+## Local Docker Deployment
+
+For local deployment using Docker, you can use the following steps:
+
+1.  **Build the Docker image:**
+    ```bash
+    docker build -t django-todo-app .
+    ```
+
+2.  **Run the Docker container:**
+    ```bash
+    docker run -p 8000:8000 django-todo-app
+    ```
+    The application will be accessible at `http://localhost:8000/`.
+
+    Alternatively, you can use Docker Compose if you have a `docker-compose.yml` file:
+    ```bash
+    docker-compose up --build
+    ```
 
 ## Running Tests
 
