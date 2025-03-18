@@ -61,6 +61,11 @@ The production environment is set up using Docker and Ansible.
 
     **Note:**  Refer to the `infra/deploy-playbook.yaml` for detailed deployment steps and configuration.
 
+## Example Deployment
+
+You can see an example deployment of this application at:
+[http://ec2-18-133-232-224.eu-west-2.compute.amazonaws.com/](http://ec2-18-133-232-224.eu-west-2.compute.amazonaws.com/)
+
 ## Running Tests
 
 To run tests:
@@ -69,11 +74,3 @@ To run tests:
 python src/manage.py test lists
 python src/manage.py test functional_tests
 ```
-
-## Contributing
-
-[Add contribution guidelines here if applicable]
-
-## License
-
-[Add license information here if applicable]
